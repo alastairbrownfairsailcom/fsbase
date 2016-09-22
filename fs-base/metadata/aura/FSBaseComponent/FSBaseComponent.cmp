@@ -1,0 +1,8 @@
+<aura:component access="global">
+    <h1>FS Base</h1>
+    <h2>Availble Processes</h2>
+	<fsbase:FSProcessList />
+    
+    <h2>Selected Process</h2>
+	<fsbase:FSProcessDetail />
+</aura:component>

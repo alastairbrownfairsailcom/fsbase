@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>FS Process</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FS Process</value>
+    </caseValues>
+    <fields>
+        <help><!-- API name of the container component that implements the process in the UI --></help>
+        <label><!-- Component --></label>
+        <name>Component__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deserializer Class --></label>
+        <name>Deserializer_Class__c</name>
+    </fields>
+    <fields>
+        <help><!-- Namespace of package that contains process --></help>
+        <label><!-- Package Namespace --></label>
+        <name>Package_Namespace__c</name>
+    </fields>
+    <fields>
+        <help><!-- Class name of class that implements parser interface --></help>
+        <label><!-- Parser Class --></label>
+        <name>Parser_Class__c</name>
+    </fields>
+    <fields>
+        <help><!-- Name of class that implements process interface --></help>
+        <label><!-- Process Class --></label>
+        <name>Process_Class__c</name>
+    </fields>
+    <fields>
+        <help><!-- Class name of class that implements serializer interface --></help>
+        <label><!-- Serializer Class --></label>
+        <name>Serializer_Class__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

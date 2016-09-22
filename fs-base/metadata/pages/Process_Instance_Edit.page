@@ -1,0 +1,36 @@
+<apex:page standardController="Process_Instance__c" extensions="FSProcessInstanceController" title="FS Process Instance">
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+
+<apex:sectionHeader title="FS Process" help="http://help.fairsail.com" />
+
+<apex:form id="CreateNewInternalCommunicationsForm">
+ 
+<apex:pageBlock id="CreateNewInternalCommunicationsFormElements" title="FS Process Instance"  mode="edit">
+    <apex:messages />
+            
+    <apex:pageBlockSection title="" columns="1">
+    
+            <apex:inputField value="{!pi.Label__c}" label="Label"/>
+            <apex:inputField value="{!pi.Active__c}" label="Active"/>
+            <apex:inputField value="{!pi.Order__c}" label="Order"/>
+            <apex:inputField value="{!pi.Start_Date__c}" label="Start Date" />
+            <apex:inputField value="{!pi.End_Date__c}" label="End Date"/>
+            
+            <apex:selectList value="{!pi.Process__c}" size="1" label="FS Process Type" id="select_process" rendered="{!checkProcess}"> 
+                <apex:selectOptions value="{!processList}" /> 
+            </apex:selectList>
+            <apex:outputField value="{!pi.Process__c}" label="Process" rendered="{!!checkProcess}"/>
+            
+            <apex:inputField value="{!pi.Additional_Information__c}" label="{!$ObjectType.Process_Instance__c.fields.Additional_Information__c.label}"/>        
+     </apex:pageBlockSection>
+
+<apex:pageBlockButtons >
+      <apex:commandButton value="Save" action="{!insertMethod}"/>
+      <apex:commandButton value="Cancel" action="{!cancelMethod}" immediate="true"/>
+      </apex:pageBlockButtons>
+
+</apex:pageBlock>
+
+</apex:form>
+
+</apex:page>

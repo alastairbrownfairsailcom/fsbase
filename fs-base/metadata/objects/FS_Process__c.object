@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Registered processes</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Component__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the container component that implements the process in the UI</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the container component that implements the process in the UI</inlineHelpText>
+        <label>Component</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deserializer_Class__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Deserializer Class</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Package_Namespace__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Namespace of package that contains process</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Namespace of package that contains process</inlineHelpText>
+        <label>Package Namespace</label>
+        <length>40</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parser_Class__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Class name of class that implements parser interface</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Class name of class that implements parser interface</inlineHelpText>
+        <label>Parser Class</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Process_Class__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>Name of class that implements process interface</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of class that implements process interface</inlineHelpText>
+        <label>Process Class</label>
+        <length>40</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Serializer_Class__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Class name of class that implements serializer interface</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Class name of class that implements serializer interface</inlineHelpText>
+        <label>Serializer Class</label>
+        <length>40</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>FS Process</label>
+    <visibility>Protected</visibility>
+</CustomObject>

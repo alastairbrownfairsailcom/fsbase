@@ -1,0 +1,11 @@
+<aura:component access="global">
+    <!-- attributes -->
+    
+    <!-- events fired -->
+    
+    <!-- event received -->
+	<aura:handler event="fsbase:FSProcessSelectedEvent" action="{!c.handleProcessSelectedEvent}"/>	
+    
+    <!-- body -->    
+    {!v.body}
+</aura:component>

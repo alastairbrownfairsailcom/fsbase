@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>alastairbrown@fairsail.com</contactEmail>
+    <contactPhone>07921312727</contactPhone>
+    <label>FSBase</label>
+    <oauthConfig>
+        <callbackUrl>https://success.fairsail.com</callbackUrl>
+        <consumerKey>3MVG9HxRZv05HarSKn6FakAcWEdX7Yrxl.NYhNJIA4U8SKwBjBraSz4kcabpaz9_F7q62tWQz1fkHmmGipP_u</consumerKey>
+        <scopes>Basic</scopes>
+        <scopes>Api</scopes>
+        <scopes>Web</scopes>
+        <scopes>Full</scopes>
+        <scopes>Chatter</scopes>
+        <scopes>CustomApplications</scopes>
+        <scopes>RefreshToken</scopes>
+        <scopes>OpenID</scopes>
+        <scopes>CustomPermissions</scopes>
+        <scopes>Wave</scopes>
+    </oauthConfig>
+</ConnectedApp>

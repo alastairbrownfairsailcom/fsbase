@@ -1,0 +1,6 @@
+<div *ngIf="!shoutOuts">No shout outs received</div>
+<ul class="shoutout">
+    <li *ngFor="let shoutOut of shoutOuts" (click)="onSelect(shoutOut)">
+        <span>{{shoutOut.reason}}</span>
+    </li>
+</ul>

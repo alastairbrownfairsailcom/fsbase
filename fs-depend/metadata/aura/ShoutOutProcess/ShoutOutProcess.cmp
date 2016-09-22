@@ -1,0 +1,13 @@
+<aura:component >
+    <!-- attributes -->
+	<aura:attribute name="process" type="fsbase.FSProcessDTO" required="true"/>
+    
+    <!-- events fired -->
+    
+    <!-- event received -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- body -->    
+	<h1>Shout Outs</h1>
+    <p>Process details go here</p>
+</aura:component>

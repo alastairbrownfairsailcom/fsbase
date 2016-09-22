@@ -1,0 +1,14 @@
+<aura:component controller="FSProcessController" access="global">
+    <!-- attributes -->
+    
+    <!-- events fired -->
+    
+    <!-- event received -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- body -->
+    <h1>Processes:</h1>
+    <aura:iteration items="{!v.processes}" var="p">
+        <fsbase:FSProcessItem process="{!p}"></fsbase:FSProcessItem>
+    </aura:iteration>	
+</aura:component>
