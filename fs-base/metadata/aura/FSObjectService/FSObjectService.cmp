@@ -1,0 +1,14 @@
+<aura:component controller="FSObjectController" access="global">
+    <!-- attributes -->
+    <aura:attribute name="objectType" type="String" access="global" required="true"/>
+    <aura:attribute name="relatedTo" type="String" access="global"/>
+    <aura:attribute name="processId" type="Id" access="global"/>
+    <aura:attribute name="params" type="Object" access="global"/>
+    
+    <!-- events fired -->
+	<aura:registerEvent name="fsObjectListAvailableEvent" type="fsbase:FSObjectListAvailableEvent"/>
+	<aura:registerEvent name="fsObjectAvailableEvent" type="fsbase:FSObjectAvailableEvent"/>
+    
+    <!-- event received -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />	
+</aura:component>

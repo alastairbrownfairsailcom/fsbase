@@ -23,12 +23,11 @@ public class FSObjectRESTTest {
 		}
 
 		public List<FSObjectDTO> getObjects(String objectType) {
+			System.debug('TestProcess:getObjects() ' + objectType);
 			if (objectType == 'User') {
 				List<FSLookupDTO> users = new List<FSLookupDTO>();
 				
-				for (User user : [SELECT Id, Name FROM User]) {
-					users.add(new FSLookupDTO(user.Id, user.Name));
-				}
+				users.add(new FSLookupDTO(UserInfo.getUserId(), UserInfo.getName()));
 				
 				return users;
 			} else if (objectType == 'testobject') {
@@ -225,5 +224,6 @@ public class FSObjectRESTTest {
             
         System.assertEquals(1, result.size());
         System.assertEquals(UserInfo.getUserId(), result.get(0).id);
+        System.assertEquals(UserInfo.getName(), result.get(0).name);
     }
 }

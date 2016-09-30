@@ -1,6 +1,13 @@
 <div *ngIf="!shoutOuts">No shout outs received</div>
+<h2>Given:</h2>
 <ul class="shoutout">
-    <li *ngFor="let shoutOut of shoutOuts" (click)="onSelect(shoutOut)">
-        <span>{{shoutOut.reason}}</span>
+    <li *ngFor="let shoutOut of givenShoutOuts" (click)="onSelect(shoutOut)">
+        <span>To {{shoutOut.receiverName}} for {{shoutOut.reason}}</span>
+    </li>
+</ul>
+<h2>Received:</h2>
+<ul class="shoutout">
+    <li *ngFor="let shoutOut of receivedShoutOuts" (click)="onSelect(shoutOut)">
+        <span>From {{shoutOut.giverName}} for {{shoutOut.reason}}</span>
     </li>
 </ul>

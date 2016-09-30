@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,15 +15,43 @@ require('../rxjs-operators');
 var FSObjectService = (function () {
     function FSObjectService(http) {
         this.http = http;
-        this.FSObjectUrl = '/1.0/fs/process'; // URL to web API
+        this.FSObjectUrl = '/1.0/fs/object'; // URL to web API
     }
-    FSObjectService.prototype.getFSObjects = function () {
-        return this.http.get(this.FSObjectUrl)
+    FSObjectService.prototype.getFSObjects = function (objectType, params) {
+        var url = this.FSObjectUrl + "/" + objectType + "/";
+        var first = true;
+        for (var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+            if (first) {
+                first = false;
+                url += '?';
+            }
+            else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+        return this.http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
     };
-    FSObjectService.prototype.getFSObject = function (id) {
-        return this.http.get(this.FSObjectUrl + "/" + id)
+    FSObjectService.prototype.getFSObject = function (objectType, id, params) {
+        var url = this.FSObjectUrl + "/" + objectType + "/" + id;
+        var first = true;
+        for (var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+            if (first) {
+                first = false;
+                url += '?';
+            }
+            else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+        return this.http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
     };
@@ -47,6 +74,6 @@ var FSObjectService = (function () {
         __metadata('design:paramtypes', [http_1.Http])
     ], FSObjectService);
     return FSObjectService;
-}());
+})();
 exports.FSObjectService = FSObjectService;
 //# sourceMappingURL=fsobject-service.js.map

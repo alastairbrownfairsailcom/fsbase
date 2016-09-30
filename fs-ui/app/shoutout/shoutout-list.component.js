@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,7 +18,8 @@ var ShoutOutListComponent = (function () {
     }
     ShoutOutListComponent.prototype.getShoutOuts = function () {
         var _this = this;
-        this._fsObjectService.getFSObjects().subscribe(function (shoutOuts) { return _this.shoutOuts = shoutOuts; });
+        this._fsObjectService.getFSObjects('ShoutOut', { given: 'true' }).subscribe(function (shoutOuts) { return _this.givenShoutOuts = shoutOuts; });
+        this._fsObjectService.getFSObjects('ShoutOut', {}).subscribe(function (shoutOuts) { return _this.receivedShoutOuts = shoutOuts; });
     };
     ShoutOutListComponent.prototype.ngOnInit = function () {
         this.getShoutOuts();
@@ -38,6 +38,6 @@ var ShoutOutListComponent = (function () {
         __metadata('design:paramtypes', [router_1.Router, fsobject_service_1.FSObjectService])
     ], ShoutOutListComponent);
     return ShoutOutListComponent;
-}());
+})();
 exports.ShoutOutListComponent = ShoutOutListComponent;
 //# sourceMappingURL=shoutout-list.component.js.map

@@ -1,13 +1,33 @@
-<aura:component >
+<aura:component extends="fsbase.FSProcessBase">
     <!-- attributes -->
-	<aura:attribute name="process" type="fsbase.FSProcessDTO" required="true"/>
-    
-    <!-- events fired -->
     
     <!-- event received -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<aura:handler name="shoutOutSelectedEvent" event="c:ShoutOutSelectedEvent"
+    		action="{!c.handleShoutOutSelectedEvent}"/>
+	<aura:handler name="createObjectEvent" event="fsbase:FSCreateObjectEvent"
+    		action="{!c.handleCreateObjectEvent}"/>
+	<aura:handler name="getObjectsEvent" event="fsbase:FSGetObjectsEvent"
+    		action="{!c.handleGetObjectsEvent}"/>
     
-    <!-- body -->    
-	<h1>Shout Outs</h1>
-    <p>Process details go here</p>
+    <!-- body -->
+    <div>
+        <h1>Shout Outs Process</h1>    
+        <h2>Given</h2>
+        <aura:iteration items="{!v.given}" var="so">
+            <c:ShoutOutItem shoutOut="{!so}" given="true"/>
+        </aura:iteration>
+        <h2>Received</h2>
+        <aura:iteration items="{!v.received}" var="so">
+            <c:ShoutOutItem shoutOut="{!so}" given="false"/>
+        </aura:iteration>
+    </div>
+    
+    <div>
+        <aura:if isTrue="{!v.selectedShoutOut}" >
+            <p><ui:button label="Create" press="{!c.createShoutOut}" /></p> 
+        </aura:if>
+        <!-- detail create or edit views -->
+        <c:ShoutOutDetail aura:id="ShoutOutDetail" process="{!v.process}" shoutOut="{!v.selectedShoutOut}" users="{!v.users}" opportunities="{!opportunities}" />
+	</div>
 </aura:component>

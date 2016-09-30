@@ -124,7 +124,7 @@ global class FSProcessRegister {
 		return registeredObjects.get(objectType);
     }
     
-    public static void clear() {
+    global static void clear() {
     	List<FS_Process__c> processes = FS_Process__c.getAll().values();
     	List<FS_Process_Object__c> objects = FS_Process_Object__c.getAll().values();
     	

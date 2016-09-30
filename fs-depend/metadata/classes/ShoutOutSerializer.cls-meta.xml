@@ -3,7 +3,7 @@
     <apiVersion>33.0</apiVersion>
     <packageVersions>
         <majorNumber>1</majorNumber>
-        <minorNumber>4</minorNumber>
+        <minorNumber>12</minorNumber>
         <namespace>fsbase</namespace>
     </packageVersions>
     <status>Active</status>

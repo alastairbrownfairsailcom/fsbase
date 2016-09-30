@@ -1,4 +1,3 @@
-"use strict";
 var router_1 = require('@angular/router');
 var fsprocess_detail_component_1 = require('./fsprocess/fsprocess-detail.component');
 var appRoutes = [

@@ -1,13 +1,23 @@
 public class ShoutOut implements fsbase.FSObjectDTO {
+    @AuraEnabled
 	public Id id {get; private set;}
+    @AuraEnabled
 	public String typeName {get; private set;}
+    @AuraEnabled
 	public Id receiverId {get; set;}
+    @AuraEnabled
 	public String receiverName {get; set;}
+    @AuraEnabled
 	public Id giverId {get; set;}
+    @AuraEnabled
 	public String giverName {get; set;}
+    @AuraEnabled
 	public Id opportunityId {get; set;}
+    @AuraEnabled
 	public String opportunityName {get; set;}
+    @AuraEnabled
 	public String comments {get; set;}
+    @AuraEnabled
 	public String reason {get; set;}
 	
 	public static ShoutOut get(Id shoutOutId) {

@@ -13,13 +13,15 @@ import {FSObjectService} from '../fsprocess/fsobject-service';
 })
 
 export class ShoutOutListComponent implements OnInit {
-    shoutOuts: ShoutOut[];
+    givenShoutOuts: ShoutOut[];
+    receivedShoutOuts: ShoutOut[];
     selectedShoutOut: ShoutOut;
     constructor(
         private _router: Router,
         private _fsObjectService: FSObjectService) { }
     getShoutOuts() {
-        this._fsObjectService.getFSObjects().subscribe(shoutOuts => this.shoutOuts = <ShoutOut[]> shoutOuts);
+        this._fsObjectService.getFSObjects('ShoutOut', {given: 'true'}).subscribe(shoutOuts => this.givenShoutOuts = <ShoutOut[]> shoutOuts);
+        this._fsObjectService.getFSObjects('ShoutOut', {}).subscribe(shoutOuts => this.receivedShoutOuts = <ShoutOut[]> shoutOuts);
     }
     ngOnInit() {
         this.getShoutOuts();

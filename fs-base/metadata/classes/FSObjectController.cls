@@ -25,27 +25,27 @@ public with sharing class FSObjectController {
     }
     
     @AuraEnabled
-    public static FSObjectDTO createObject(String objectType, Id processId, Map<String, String> params, FSObjectDTO fsObject) {
+    public static FSObjectDTO createObject(String objectType, String relatedTo, Id processId, Map<String, String> params, FSObjectDTO fsObject) {
 		// build the process object
-		ProcessDescriptor pd = buildProcess(objectType, processId, params);
+		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
 		    		    			
 		// create business objects
 		return pd.fsProcess.createObject(pd.objectType, fsObject);    	
     }
     
     @AuraEnabled
-    public static FSObjectDTO updateObject(String objectType, Id objectId, Id processId, Map<String, String> params, FSObjectDTO fsObject) {
+    public static FSObjectDTO updateObject(String objectType, String relatedTo, Id objectId, Id processId, Map<String, String> params, FSObjectDTO fsObject) {
 		// build the process object
-		ProcessDescriptor pd = buildProcess(objectType, processId, params);
+		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
 		    		    			
 		// update business objects
 		return pd.fsProcess.updateObject(pd.objectType, objectId, fsObject);    	
     }
         
     @AuraEnabled
-    public static void deleteObject(String objectType, Id objectId, Id processId, Map<String, String> params) {
+    public static void deleteObject(String objectType, String relatedTo, Id objectId, Id processId, Map<String, String> params) {
 		// build the process object
-		ProcessDescriptor pd = buildProcess(objectType, processId, params);
+		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
 		    		    			
 		// delete business objects
 		pd.fsProcess.deleteObject(pd.objectType, objectId);    	
@@ -104,7 +104,9 @@ public with sharing class FSObjectController {
 			}
 			
 			// add query params to the config
-			settings.add(params);
+			if (params != null) {
+				settings.add(params);
+			}
 			
 			if (!settings.contains(FSProcessSettings.SUBJECT_USER_ID_KEY)) {
 				settings.add(FSProcessSettings.SUBJECT_USER_ID_KEY, UserInfo.getUserId());

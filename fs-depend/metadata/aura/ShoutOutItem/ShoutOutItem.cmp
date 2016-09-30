@@ -1,0 +1,16 @@
+<aura:component >
+    <!-- attributes -->
+	<aura:attribute name="shoutOut" type="FsDepend.ShoutOut" required="true"/>
+	<aura:attribute name="given" type="Boolean" required="true"/>
+    
+    <!-- events fired -->
+	<aura:registerEvent name="shoutOutSelectedEvent" type="FsDepend:ShoutOutSelectedEvent"/>
+
+    <!-- body -->
+    <aura:if isTrue="{!v.given}">
+    <p>Shout out to {!v.shoutOut.receiverName} for {!v.shoutOut.reason}<ui:button label="Select" press="{!c.selectShoutOut}" /></p> 
+    </aura:if>
+    <aura:if isTrue="{!!v.given}">
+    <p>Shout out from {!v.shoutOut.giverName} for {!v.shoutOut.reason}<ui:button label="Select" press="{!c.selectShoutOut}" /></p> 
+    </aura:if>
+</aura:component>

@@ -1,6 +1,7 @@
 global class ShoutOutProcess implements fsbase.FSProcess {
 	private Id subjectUserId;
 	private Boolean given;
+	private String objectType;
 	
 	global void configure(fsbase.FSProcessSettings settings) {
 		if (settings != null) {
@@ -15,6 +16,12 @@ global class ShoutOutProcess implements fsbase.FSProcess {
 			} else {
 				given = false;
 			}
+			
+			if (settings.contains(fsbase.FSProcessSettings.OBJECT_TYPE_KEY)) {
+				objectType = settings.get(fsbase.FSProcessSettings.OBJECT_TYPE_KEY);
+			} else {
+				objectType = 'ShoutOut';
+			}
 		} else {
 			throw new fsbase.FSProcessConfigException('settings is null');
 		}		
@@ -25,7 +32,7 @@ global class ShoutOutProcess implements fsbase.FSProcess {
 		
 		Schema.DescribeSObjectResult objectDescribe = Schema.getGlobalDescribe().get(FSNamespace.prependNamespace('Shout_Out__c')).getDescribe();
 		
-		objectMetadata.objectType = FSNamespace.prependNamespace('Shout_Out__c');
+		objectMetadata.objectType = objectType;
 		objectMetadata.displayName = objectDescribe.getLabel();
 		
         Map<String, Schema.SObjectField> fieldMap = Schema.getGlobalDescribe().get(FSNamespace.prependNamespace('Shout_Out__c')).getDescribe().fields.getMap();
@@ -38,12 +45,14 @@ global class ShoutOutProcess implements fsbase.FSProcess {
 			System.debug(dfr);
 			
             // found field
-            fsbase.FSObjectMetadata.FSPicklistFieldMetadata fieldMetadata = new fsbase.FSObjectMetadata.FSPicklistFieldMetadata();
-            fieldMetadata.path = dfr.getName();
-            fieldMetadata.displayName = dfr.getLabel();
-            fieldMetadata.fieldType = Schema.DisplayType.PICKLIST.name();
+            fsbase.FSObjectMetadata.FSFieldMetadata fieldMetadata;
             
             if(dfr.getType() == Schema.DisplayType.PICKLIST){
+            	fsbase.FSObjectMetadata.FSPicklistFieldMetadata picklistFieldMetadata = new fsbase.FSObjectMetadata.FSPicklistFieldMetadata();
+            	picklistFieldMetadata.path = dfr.getName();
+            	picklistFieldMetadata.displayName = dfr.getLabel();
+            	picklistFieldMetadata.fieldType = Schema.DisplayType.PICKLIST.name();
+
                 List<SelectOption> options = new List<SelectOption>();
                 SelectOption defaultOption;
                 for(Schema.PicklistEntry p : dfr.getPickListValues()) {
@@ -63,8 +72,10 @@ global class ShoutOutProcess implements fsbase.FSProcess {
                     if (opt.displayName == null) {
                     	throw new fsbase.FSProcessDataException('no displayName');
                     }
-                    fieldMetadata.addOption(opt);
-                }               
+                    picklistFieldMetadata.addOption(opt);
+                }
+                
+                fieldMetadata = picklistFieldMetadata;               
             }
                 
 			objectMetadata.addField(fieldMetadata);
@@ -76,6 +87,8 @@ global class ShoutOutProcess implements fsbase.FSProcess {
 	} 	
 	
 	global List<fsbase.FSObjectDTO> getObjects(String objectType) {
+		System.debug('Getting objects for ' + objectType);
+		
 		if (objectType == null || objectType == 'ShoutOut') {
 			if (given == true) {
 				return ShoutOut.getAllGivenBy(subjectUserId);

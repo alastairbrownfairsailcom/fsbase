@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -27,22 +26,22 @@ var ComponentOutlet = (function () {
                 return;
             }
             var tmpl = '<' + this.template + '></' + this.template + '>';
-            var DynamicComponent_1 = (function () {
-                function DynamicComponent_1() {
+            var DynamicComponent = (function () {
+                function DynamicComponent() {
                 }
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], DynamicComponent_1.prototype, "data", void 0);
-                DynamicComponent_1 = __decorate([
+                ], DynamicComponent.prototype, "data", void 0);
+                DynamicComponent = __decorate([
                     core_1.Component({
                         selector: 'dynamic-comp',
                         template: tmpl
                     }), 
                     __metadata('design:paramtypes', [])
-                ], DynamicComponent_1);
-                return DynamicComponent_1;
-            }());
+                ], DynamicComponent);
+                return DynamicComponent;
+            })();
             ;
             var DynamicModule = (function () {
                 function DynamicModule() {
@@ -54,16 +53,16 @@ var ComponentOutlet = (function () {
                             shoutout_module_1.ShoutOutModule,
                             common_1.CommonModule
                         ],
-                        declarations: [DynamicComponent_1]
+                        declarations: [DynamicComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], DynamicModule);
                 return DynamicModule;
-            }());
+            })();
             console.log('Loading template ' + tmpl);
             this.compiler.compileModuleAndAllComponentsAsync(DynamicModule)
                 .then(function (moduleWithComponentFactories) {
-                var compFactory = moduleWithComponentFactories.componentFactories.find(function (x) { return x.componentType === DynamicComponent_1; });
+                var compFactory = moduleWithComponentFactories.componentFactories.find(function (x) { return x.componentType === DynamicComponent; });
                 var injector = core_1.ReflectiveInjector.fromResolvedProviders([], _this.vcRef.parentInjector);
                 var cmpRef = _this.vcRef.createComponent(compFactory, 0, injector, []);
                 //cmpRef.instance.data = data;
@@ -92,7 +91,7 @@ var ComponentOutlet = (function () {
         __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.Compiler])
     ], ComponentOutlet);
     return ComponentOutlet;
-}());
+})();
 exports.ComponentOutlet = ComponentOutlet;
 var FSProcessDetailComponent = (function () {
     function FSProcessDetailComponent(route, router, _fsprocessService) {
@@ -130,6 +129,6 @@ var FSProcessDetailComponent = (function () {
         __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, fsprocess_service_1.FSProcessService])
     ], FSProcessDetailComponent);
     return FSProcessDetailComponent;
-}());
+})();
 exports.FSProcessDetailComponent = FSProcessDetailComponent;
 //# sourceMappingURL=fsprocess-detail.component.js.map

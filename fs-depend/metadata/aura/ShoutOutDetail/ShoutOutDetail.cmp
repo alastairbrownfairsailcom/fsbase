@@ -1,0 +1,44 @@
+<aura:component >
+    <!-- attributes -->
+	<aura:attribute name="process" type="fsbase.FSProcessDTO" required="true" />
+	<aura:attribute name="shoutOut" type="FsDepend.ShoutOut"/>
+	<aura:attribute name="users" type="FsDepend.FSLookupDTO"/>
+	<aura:attribute name="opportunities" type="FsDepend.FSLookupDTO"/>
+    
+    <!-- events received -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- events fired -->
+	<aura:registerEvent name="getObjectsEvent" type="fsbase:FSGetObjectsEvent"/>
+	<aura:registerEvent name="createObjectEvent" type="fsbase:FSCreateObjectEvent"/>
+
+    <!-- body -->
+    <aura:if isTrue="{!v.shoutOut}">
+    <h2>Shout Out Detail</h2>
+        <p>{!v.shoutOut.giverName}</p>
+        <p>{!v.shoutOut.receiverName}</p>
+        <p>{!v.shoutOut.opportunityName}</p>
+        <p>{!v.shoutOut.reason}</p>
+        <p>{!v.shoutOut.comments}</p>
+    </aura:if>
+    <aura:if isTrue="{!!v.shoutOut}">
+    <h2>Create Shout Out</h2>
+    <ui:inputSelect aura:id="receiver" label="Received by" change="{!c.onSelectChange}">
+        <aura:iteration items="{!v.users}" var="user">
+             <ui:inputSelectOption text="{!user.id}" label="{!user.name}"/>
+        </aura:iteration>
+    </ui:inputSelect>        
+    <ui:inputSelect aura:id="opportunity" label="Opportunity" change="{!c.onSelectChange}">
+        <aura:iteration items="{!v.opportunities}" var="opportunity">
+             <ui:inputSelectOption text="{!opportunity.id}" label="{!opportunity.name}"/>
+        </aura:iteration>
+    </ui:inputSelect>        
+    <ui:inputSelect aura:id="reason" label="Reason" change="{!c.onSelectChange}">
+        <aura:iteration items="{!v.reasons}" var="reason">
+             <ui:inputSelectOption text="{!reason.value}" label="{!reason.displayName}"/>
+        </aura:iteration>
+    </ui:inputSelect>        
+	<ui:inputTextArea aura:id="comments" label="Comments" value="Comments" rows="5" change="{!c.onSelectChange}" />        
+    <p><ui:button label="Create" press="{!c.createShoutOut}" /></p> 
+    </aura:if>
+</aura:component>

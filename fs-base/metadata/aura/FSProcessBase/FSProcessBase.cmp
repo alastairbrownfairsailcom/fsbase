@@ -1,0 +1,6 @@
+<aura:component controller="FSObjectController" extensible="true" abstract="true" access="global" >
+    <!-- attributes -->
+    <aura:attribute name="process" type="FSProcessDTO" access="global"/>
+    
+    <div>{!v.body}</div>
+</aura:component>

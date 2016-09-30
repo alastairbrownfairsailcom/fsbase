@@ -1,7 +1,14 @@
 <aura:component access="global">
+    <!-- attributes -->
+    
+    <!-- events fired -->
+    
+    <!-- event received -->
+    
+    <!-- body -->
     <h1>FS Base</h1>
     <h2>Availble Processes</h2>
-	<fsbase:FSProcessList />
+	<fsbase:FSProcessList fsProcessService="{!v.fsProcessService}" />
     
     <h2>Selected Process</h2>
 	<fsbase:FSProcessDetail />

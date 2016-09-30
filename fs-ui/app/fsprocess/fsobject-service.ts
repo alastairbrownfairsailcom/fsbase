@@ -9,14 +9,46 @@ import '../rxjs-operators';
 @Injectable()
 export class FSObjectService {
     constructor (private http: Http) {}
-    private FSObjectUrl = '/1.0/fs/process';  // URL to web API
-    getFSObjects (): Observable<FSObject[]> {
-        return this.http.get(this.FSObjectUrl)
+    private FSObjectUrl = '/1.0/fs/object';  // URL to web API
+    getFSObjects (objectType : String, params : Object): Observable<FSObject[]> {
+        var url = this.FSObjectUrl + "/" + objectType + "/";
+
+        var first = true;
+        for(var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+
+            if (first) {
+                first = false;
+                url += '?';
+            } else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+
+        return this.http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getFSObject (id: string): Observable<FSObject> {
-        return this.http.get(this.FSObjectUrl+"/"+id)
+    getFSObject (objectType : String, id: string, params : Object): Observable<FSObject> {
+        var url = this.FSObjectUrl+ "/" + objectType+"/"+id;
+
+        var first = true;
+        for(var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+
+            if (first) {
+                first = false;
+                url += '?';
+            } else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+
+        return this.http.get(url)
             .map(this.extractData)
             .catch(this.handleError);
     }

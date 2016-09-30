@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="A user has selected a shout out">
+    <aura:attribute name="shoutOut" type="FsDepend.ShoutOut"/>
+</aura:event>

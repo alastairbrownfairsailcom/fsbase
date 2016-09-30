@@ -4,18 +4,13 @@ global class FSObjectREST {
 		public FSSerializer fsSerializer;
 		public FSDeserializer fsDeserializer;
 		public String objectType;
+		public String relatedTo;
 	}
 	
 	@HttpGet
 	global static void get() {
 		String dto = null;
 		
-		// are we getting related objects
-		String relatedTo = RESTUtilities.getQueryTerm('relatedTo');
-		String objectType = RESTUtilities.getPathValue(5);			
-		
-		System.debug('Related to: ' + relatedTo);
-						
 		try {
 		    Id objectId;
 		    try {
@@ -26,17 +21,17 @@ global class FSObjectREST {
 		    
 		    System.debug('Object id: ' + objectId);
 		    
-		    ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType);
+		    ProcessDescriptor pd = buildProcess();
 			
 			if (objectId != null) {
 				// get business object
-				FSObjectDTO obj = FSObjectController.getObject(objectType, relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
+				FSObjectDTO obj = FSObjectController.getObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
 						
 				// serialize business objects
 				dto = pd.fsSerializer.serialize(obj);	
 			} else {
 				// get business objects
-				List<FSObjectDTO> objects = FSObjectController.getObjects(objectType, relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
+				List<FSObjectDTO> objects = FSObjectController.getObjects(pd.objectType, pd.relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
 						
 				// serialize business objects
 				dto = pd.fsSerializer.serialize(objects);	
@@ -66,7 +61,7 @@ global class FSObjectREST {
 						
 		try {
 			// build the process object
-			ProcessDescriptor pd = buildProcess();
+		    ProcessDescriptor pd = buildProcess();
 			
 			// convert request body
 			Blob body = RestContext.request.requestBody;
@@ -75,7 +70,7 @@ global class FSObjectREST {
 			FSObjectDTO fsObject = pd.fsDeserializer.deserialize(pd.objectType, body);
 			
 			// create object
-			FSObjectDTO result = FSObjectController.createObject(pd.objectType, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), fsObject);
+			FSObjectDTO result = FSObjectController.createObject(pd.objectType, pd.relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), fsObject);
 									
 			// serialize business objects
 			dto = pd.fsSerializer.serialize(result);			
@@ -105,7 +100,7 @@ global class FSObjectREST {
 						
 		try {
 			// build the process object
-			ProcessDescriptor pd = buildProcess();
+		    ProcessDescriptor pd = buildProcess();
 
 		    Id objectId = Id.valueOf(RESTUtilities.getPathValue(6)); 
 			
@@ -116,7 +111,7 @@ global class FSObjectREST {
 			FSObjectDTO fsObject = pd.fsDeserializer.deserialize(pd.objectType, body);
 			
 			// update object
-			FSObjectDTO result = FSObjectController.updateObject(pd.objectType, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), fsObject);
+			FSObjectDTO result = FSObjectController.updateObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), fsObject);
 						
 			// serialize business objects
 			dto = pd.fsSerializer.serialize(result);			
@@ -143,13 +138,14 @@ global class FSObjectREST {
 	@HttpDelete
 	global static void deleteObject() {		
 		Boolean ok = true;				
+
 		try {
 		    Id objectId = Id.valueOf(RESTUtilities.getPathValue(6)); 
 
-			ProcessDescriptor pd = buildProcess();
+		    ProcessDescriptor pd = buildProcess();
 			
 			// delete object
-			FSObjectController.deleteObject(pd.objectType, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());												
+			FSObjectController.deleteObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());												
 		} catch (Exception ex) {
 			System.debug(ex);
 			System.debug(ex.getStackTraceString());
@@ -173,7 +169,19 @@ global class FSObjectREST {
 	}
 	
 	private static ProcessDescriptor buildProcess() {					    
-		return buildProcess(RESTUtilities.getPathValue(5));		
+		// are we getting related objects
+		String relatedTo = RESTUtilities.getQueryTerm('relatedTo');
+		String objectType = RESTUtilities.getPathValue(5);			
+		
+		System.debug('Related to: ' + relatedTo);
+						
+		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType);
+		
+		// save primary and related object types
+		pd.objectType = objectType;
+		pd.relatedTo = relatedTo;
+		
+		return pd;
 	}
 	
 	private static ProcessDescriptor buildProcess(String objectType) {
@@ -183,10 +191,7 @@ global class FSObjectREST {
 		
 		// create process composite
 		ProcessDescriptor descriptor = new ProcessDescriptor();
-		
-		// save primary object type
-		descriptor.objectType = objectType;
-		
+				
 			// lookup process
 			FSProcessRegister.RegisteredProcess registeredProcess = FSProcessRegister.getProcessByObjectType(objectType);
 				

@@ -1,3 +1,10 @@
-<aura:component access="global">
-	
+<aura:component controller="FSProcessController" access="global">
+    <!-- attributes -->
+    <aura:attribute name="processId" type="Id" access="global"/>
+    
+    <!-- events fired -->
+	<aura:registerEvent name="fsProcessListAvailableEvent" type="fsbase:FSProcessListAvailableEvent"/>
+    
+    <!-- event received -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />	
 </aura:component>
