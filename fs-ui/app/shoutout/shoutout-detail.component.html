@@ -1,0 +1,9 @@
+<button (click)="listShoutOuts()">Back to list</button>
+
+<div *ngIf="shoutOut">
+<p>From: {{shoutOut.giverName}} </p>
+<p>To: {{shoutOut.receiverName}} </p>
+<p>For: {{shoutOut.reason}} </p>
+<p>Opportunity: {{shoutOut.opportunityName}} </p>
+<p>Comments: {{shoutOut.comments}} </p>
+</div>

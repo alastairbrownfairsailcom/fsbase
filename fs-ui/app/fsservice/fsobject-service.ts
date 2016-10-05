@@ -1,6 +1,7 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { FSObject }           from './FSObject';
+import { FSObject }           from '../interfaces/fsobject';
+import { FSLookup }           from '../interfaces/fslookup';
 import { Observable }     from 'rxjs/Observable';
 
 // Add the RxJS Observable operators we need in this app.
@@ -31,7 +32,34 @@ export class FSObjectService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getFSObject (objectType : String, id: string, params : Object): Observable<FSObject> {
+    getFSLookups (objectType : String, relatedTo: String, params : Object): Observable<FSLookup[]> {
+        var url = this.FSObjectUrl + "/" + objectType + "/";
+
+        if (!params) {
+            params = {};
+        }
+
+        params['relatedTo'] = relatedTo;
+
+        var first = true;
+        for(var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+
+            if (first) {
+                first = false;
+                url += '?';
+            } else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+
+        return this.http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getFSObject (objectType : string, id: string, params : Object): Observable<FSObject> {
         var url = this.FSObjectUrl+ "/" + objectType+"/"+id;
 
         var first = true;
@@ -49,6 +77,27 @@ export class FSObjectService {
         }
 
         return this.http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    createFSObject (objectType : string, params : Object, object : FSObject): Observable<FSObject> {
+        var url = this.FSObjectUrl+ "/" + objectType;
+
+        var first = true;
+        for(var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+
+            if (first) {
+                first = false;
+                url += '?';
+            } else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+
+        return this.http.post(url, object)
             .map(this.extractData)
             .catch(this.handleError);
     }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-
-import {FSProcess} from './fsprocess';
-//import {HeroDetailComponent} from './fsprocess-detail.component';
-import {FSProcessService} from './fsprocess-service';
+import {FSProcessService} from '../fsservice/fsprocess-service';
+import { FSProcess } from '../interfaces/fsprocess'
 
 @Component({
     selector: 'fsprocess-list',
@@ -27,6 +25,6 @@ export class FSProcessListComponent implements OnInit {
     onSelect(fsProcess: FSProcess) {
         this.selectedFSProcess = fsProcess;
 
-        this._router.navigate(['/fsprocess', fsProcess.id]);
+        this._router.navigate(['/'+fsProcess.componentName, {processId: fsProcess.id}]);
     }
 }

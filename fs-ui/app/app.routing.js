@@ -1,10 +1,17 @@
+"use strict";
 var router_1 = require('@angular/router');
-var fsprocess_detail_component_1 = require('./fsprocess/fsprocess-detail.component');
-var appRoutes = [
+var home_component_1 = require('./home.component');
+/*
+const shoutOutRoutes: Routes = [
     {
-        path: 'fsprocess/:id',
-        component: fsprocess_detail_component_1.FSProcessDetailComponent
+        path:'shoutout',
+        loadChildren: 'app/shoutout/shoutout.module#ShoutOutModule'
     }
+];
+*/
+var appRoutes = [
+    { path: '', component: home_component_1.HomeComponent },
+    { path: 'shoutout', loadChildren: 'app/shoutout/shoutout.module#ShoutOutModule' },
 ];
 exports.appRoutingProviders = [];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

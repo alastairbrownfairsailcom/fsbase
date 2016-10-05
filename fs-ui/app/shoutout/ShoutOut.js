@@ -1,1 +1,2 @@
-//# sourceMappingURL=ShoutOut.js.map
+"use strict";
+//# sourceMappingURL=shoutout.js.map

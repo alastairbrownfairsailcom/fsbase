@@ -1,8 +1,9 @@
 <h2>My Processes</h2>
 <ul class="fsProcess">
     <ul>
-        <li *ngFor="let fsProcess of fsProcesses" (click)="onSelect(fsProcess)">
-            <span>{{fsProcess.displayName}}</span>
+        <li *ngFor="let fsProcess of fsProcesses">
+            <span>{{fsProcess.displayName}}</span> <button (click)="onSelect(fsProcess)">Choose</button>
+
         </li>
     </ul>
 </ul>

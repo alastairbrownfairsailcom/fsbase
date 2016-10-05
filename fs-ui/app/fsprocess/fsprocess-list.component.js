@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,8 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-//import {HeroDetailComponent} from './fsprocess-detail.component';
-var fsprocess_service_1 = require('./fsprocess-service');
+var fsprocess_service_1 = require('../fsservice/fsprocess-service');
 var FSProcessListComponent = (function () {
     function FSProcessListComponent(_router, _fsprocessService) {
         this._router = _router;
@@ -25,7 +25,7 @@ var FSProcessListComponent = (function () {
     };
     FSProcessListComponent.prototype.onSelect = function (fsProcess) {
         this.selectedFSProcess = fsProcess;
-        this._router.navigate(['/fsprocess', fsProcess.id]);
+        this._router.navigate(['/' + fsProcess.componentName, { processId: fsProcess.id }]);
     };
     FSProcessListComponent = __decorate([
         core_1.Component({
@@ -37,6 +37,6 @@ var FSProcessListComponent = (function () {
         __metadata('design:paramtypes', [router_1.Router, fsprocess_service_1.FSProcessService])
     ], FSProcessListComponent);
     return FSProcessListComponent;
-})();
+}());
 exports.FSProcessListComponent = FSProcessListComponent;
 //# sourceMappingURL=fsprocess-list.component.js.map

@@ -11,26 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var http_1 = require('@angular/http');
-var fsprocess_list_component_1 = require('./fsprocess-list.component');
-var fsservice_module_1 = require('../fsservice/fsservice.module');
-var FSProcessModule = (function () {
-    function FSProcessModule() {
+var fsprocess_service_1 = require('./fsprocess-service');
+var fsobject_service_1 = require('./fsobject-service');
+var FSServiceModule = (function () {
+    function FSServiceModule() {
     }
-    FSProcessModule = __decorate([
+    FSServiceModule = __decorate([
         core_1.NgModule({
             imports: [
                 http_1.HttpModule,
                 http_1.JsonpModule,
-                common_1.CommonModule,
-                fsservice_module_1.FSServiceModule
+                common_1.CommonModule
             ],
-            declarations: [fsprocess_list_component_1.FSProcessListComponent],
-            exports: [fsprocess_list_component_1.FSProcessListComponent],
-            providers: []
+            declarations: [],
+            exports: [],
+            providers: [fsprocess_service_1.FSProcessService, fsobject_service_1.FSObjectService]
         }), 
         __metadata('design:paramtypes', [])
-    ], FSProcessModule);
-    return FSProcessModule;
+    ], FSServiceModule);
+    return FSServiceModule;
 }());
-exports.FSProcessModule = FSProcessModule;
-//# sourceMappingURL=fsprocess.module.js.map
+exports.FSServiceModule = FSServiceModule;
+//# sourceMappingURL=fsservice.module.js.map

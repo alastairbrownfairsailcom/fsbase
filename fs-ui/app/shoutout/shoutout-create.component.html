@@ -1,0 +1,27 @@
+<h2>Create Shout Out</h2>
+<form (ngSubmit)="onSubmit()" #shoutOutForm="ngForm">
+    <div class="form-group">
+        <label for="receiver">To:</label>
+        <select class="form-control" id="receiver" required [(ngModel)]="shoutOut.receiverId" name="receiverId">
+            <option *ngFor="let receiver of receivers" [value]="receiver.id">{{receiver.name}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="opportunity">Opportunity:</label>
+        <select class="form-control" id="opportunity" required [(ngModel)]="shoutOut.opportunityId" name="opportunityId">
+            <option *ngFor="let opportunity of opportunities" [value]="opportunity.id">{{opportunity.name}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="reason">Reason:</label>
+        <select class="form-control" id="reason" required [(ngModel)]="shoutOut.reason" name="reason">
+            <option *ngFor="let reason of reasons" [value]="reason.value">{{reason.displayName}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea class="form-control" id="comments" [(ngModel)]="shoutOut.comments" name="comments" ></textarea>
+    </div>
+    <button type="submit" [disabled]="!shoutOutForm.form.valid">Create</button>
+    <button (click)="cancel()">Cancel</button>
+</form>

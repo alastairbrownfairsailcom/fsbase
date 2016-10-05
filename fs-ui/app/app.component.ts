@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FSProcessListComponent } from './fsprocess/fsprocess-list.component';
-
 @Component({
     selector: 'my-app',
     template: `

@@ -1,6 +1,7 @@
-import { FSObject }           from '../fsprocess/FSObject';
+import { FSObject }           from '../interfaces/fsobject';
 
 export interface ShoutOut extends FSObject {
+    id: string;
     receiverId: string;
     receiverName: string;
     giverId: string;

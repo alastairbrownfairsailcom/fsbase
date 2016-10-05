@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
+var home_component_1 = require('./home.component');
 var fsprocess_module_1 = require('./fsprocess/fsprocess.module');
 var app_routing_1 = require('./app.routing');
 var app_routing_2 = require('./app.routing');
@@ -24,13 +26,13 @@ var AppModule = (function () {
                 app_routing_1.routing,
                 app_routing_2.appRoutingProviders
             ],
-            declarations: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, home_component_1.HomeComponent],
             providers: [app_routing_2.appRoutingProviders],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
     return AppModule;
-})();
+}());
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

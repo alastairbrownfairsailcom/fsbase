@@ -1,6 +1,6 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { FSProcess }           from './fsprocess';
+import { FSProcess }           from '../interfaces/fsprocess';
 import { Observable }     from 'rxjs/Observable';
 
 // Add the RxJS Observable operators we need in this app.

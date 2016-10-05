@@ -1,14 +1,23 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home.component';
 
-import { FSProcessDetailComponent }      from './fsprocess/fsprocess-detail.component';
+/*
+const shoutOutRoutes: Routes = [
+    {
+        path:'shoutout',
+        loadChildren: 'app/shoutout/shoutout.module#ShoutOutModule'
+    }
+];
+*/
 
 const appRoutes: Routes = [
-    {
-        path: 'fsprocess/:id',
-        component: FSProcessDetailComponent
-    }
-
+    { path: '', component: HomeComponent },
+    { path: 'shoutout', loadChildren: 'app/shoutout/shoutout.module#ShoutOutModule' },
+/*
+    ...shoutOutRoutes
+*/
 ];
 
 export const appRoutingProviders: any[] = [];

@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -36,6 +37,29 @@ var FSObjectService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    FSObjectService.prototype.getFSLookups = function (objectType, relatedTo, params) {
+        var url = this.FSObjectUrl + "/" + objectType + "/";
+        if (!params) {
+            params = {};
+        }
+        params['relatedTo'] = relatedTo;
+        var first = true;
+        for (var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+            if (first) {
+                first = false;
+                url += '?';
+            }
+            else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+        return this.http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     FSObjectService.prototype.getFSObject = function (objectType, id, params) {
         var url = this.FSObjectUrl + "/" + objectType + "/" + id;
         var first = true;
@@ -52,6 +76,25 @@ var FSObjectService = (function () {
             url += key + '=' + params[key];
         }
         return this.http.get(url)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    FSObjectService.prototype.createFSObject = function (objectType, params, object) {
+        var url = this.FSObjectUrl + "/" + objectType;
+        var first = true;
+        for (var key in params) {
+            console.log('Type: ' + typeof key);
+            console.log(key + ' => ' + params[key]);
+            if (first) {
+                first = false;
+                url += '?';
+            }
+            else {
+                url += '&';
+            }
+            url += key + '=' + params[key];
+        }
+        return this.http.post(url, object)
             .map(this.extractData)
             .catch(this.handleError);
     };
@@ -74,6 +117,6 @@ var FSObjectService = (function () {
         __metadata('design:paramtypes', [http_1.Http])
     ], FSObjectService);
     return FSObjectService;
-})();
+}());
 exports.FSObjectService = FSObjectService;
 //# sourceMappingURL=fsobject-service.js.map
