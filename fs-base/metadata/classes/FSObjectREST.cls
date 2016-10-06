@@ -1,8 +1,6 @@
 @RestResource(urlMapping='/*/fs/object/*/*')
 global class FSObjectREST {
 	private class ProcessDescriptor {
-		public FSSerializer fsSerializer;
-		public FSDeserializer fsDeserializer;
 		public String objectType;
 		public String relatedTo;
 	}
@@ -25,16 +23,10 @@ global class FSObjectREST {
 			
 			if (objectId != null) {
 				// get business object
-				FSObjectDTO obj = FSObjectController.getObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
-						
-				// serialize business objects
-				dto = pd.fsSerializer.serialize(obj);	
+				dto = FSObjectController.getObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
 			} else {
 				// get business objects
-				List<FSObjectDTO> objects = FSObjectController.getObjects(pd.objectType, pd.relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
-						
-				// serialize business objects
-				dto = pd.fsSerializer.serialize(objects);	
+				dto = FSObjectController.getObjects(pd.objectType, pd.relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms());				
 			}		
 		} catch (Exception ex) {
 			System.debug(ex);
@@ -62,19 +54,9 @@ global class FSObjectREST {
 		try {
 			// build the process object
 		    ProcessDescriptor pd = buildProcess();
-			
-			// convert request body
-			Blob body = RestContext.request.requestBody;
-			
-			// deserialize business objects			
-			FSObjectDTO fsObject = pd.fsDeserializer.deserialize(pd.objectType, body);
-			
+						
 			// create object
-			FSObjectDTO result = FSObjectController.createObject(pd.objectType, pd.relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), fsObject);
-									
-			// serialize business objects
-			dto = pd.fsSerializer.serialize(result);			
-												
+			dto = FSObjectController.createObject(pd.objectType, pd.relatedTo, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), RestContext.request.requestBody.toString());						
 		} catch (Exception ex) {
 			System.debug(ex);
 			System.debug(ex.getStackTraceString());
@@ -103,19 +85,9 @@ global class FSObjectREST {
 		    ProcessDescriptor pd = buildProcess();
 
 		    Id objectId = Id.valueOf(RESTUtilities.getPathValue(6)); 
-			
-			// convert request body
-			Blob body = RestContext.request.requestBody;
-			
-			// deserialize business objects			
-			FSObjectDTO fsObject = pd.fsDeserializer.deserialize(pd.objectType, body);
-			
-			// update object
-			FSObjectDTO result = FSObjectController.updateObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), fsObject);
 						
-			// serialize business objects
-			dto = pd.fsSerializer.serialize(result);			
-												
+			// update object
+			dto = FSObjectController.updateObject(pd.objectType, pd.relatedTo, objectId, RESTUtilities.getQueryTerm(FSProcessSettings.PROCESS_ID_KEY), RestUtilities.getAllQueryTerms(), RestContext.request.requestBody.toString());												
 		} catch (Exception ex) {
 			System.debug(ex);
 			System.debug(ex.getStackTraceString());
@@ -175,40 +147,12 @@ global class FSObjectREST {
 		
 		System.debug('Related to: ' + relatedTo);
 						
-		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType);
+		ProcessDescriptor pd = new ProcessDescriptor();
 		
 		// save primary and related object types
 		pd.objectType = objectType;
 		pd.relatedTo = relatedTo;
 		
 		return pd;
-	}
-	
-	private static ProcessDescriptor buildProcess(String objectType) {
-		if (objectType == null) {
-		    throw new FSObjectException('Object type is null');
-		}
-		
-		// create process composite
-		ProcessDescriptor descriptor = new ProcessDescriptor();
-				
-			// lookup process
-			FSProcessRegister.RegisteredProcess registeredProcess = FSProcessRegister.getProcessByObjectType(objectType);
-				
-			if (registeredProcess == null) {
-		       	throw new FSProcessInstanceException('Object does not match a process: ' + objectType); 
-			}			
-					
-			// get serializer
-			Type fsSerializerType = Type.forName(registeredProcess.namespace, registeredProcess.serializerClassName);
-			     	
-			descriptor.fsSerializer = (FSSerializer) fsSerializerType.newInstance();
-
-			// get Deserializer
-			Type fsDeserializerType = Type.forName(registeredProcess.namespace, registeredProcess.deserializerClassName);
-			     	
-			descriptor.fsDeserializer = (FSDeserializer) fsDeserializerType.newInstance();
-			
-		return descriptor;
-	}   
+	}	
 }

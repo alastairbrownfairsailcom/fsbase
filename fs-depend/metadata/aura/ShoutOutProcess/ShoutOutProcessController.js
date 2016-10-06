@@ -1,64 +1,39 @@
 ({
     doInit : function(component, event, helper) {
-        console.log('ShoutOutProcess: doInit');
-        
-        var objectType = component.get("v.process.objects[0].objectType");
-        
-                console.log('Getting ' + objectType);
-        
-         helper.getObjects(component, 
-                          objectType,
-                          null,
-                          component.get("v.process.id"),
-                          {
-                          	"given": 'true'
-                          },
-                          function (objects) {helper.handleGiven(component, objects);});
-          helper.getObjects(component, 
-                          objectType,
-                          null,
-                          component.get("v.process.id"),
-                          {
-                          },
-                            function (objects) {helper.handleReceived(component, objects);});                  
+        component.set("v.showList", true);
+        component.set("v.showDetail", false);
+        component.set("v.showCreate", false);
     },
     handleShoutOutSelectedEvent: function (component, event, helper) {
         	var shoutOut = event.getParam("shoutOut");
             
             console.log("Received " + shoutOut.id);
                                 
-            component.set("v.selectedShoutOut", shoutOut);                                                        
+            component.set("v.selectedShoutOut", shoutOut);
+        
+        component.set("v.showList", false);
+        component.set("v.showDetail", true);
+        component.set("v.showCreate", false);
     },
-    handleCreateObjectEvent: function (component, event, helper) {
-        console.log('ShoutOutProcess: handleCreateObjectEvent');
-                
-         var object = event.getParam("object");
-        
-         helper.createObject(component, 
-                          component.get("v.process.objects[0].objectType"),
-                          null,
-                          component.get("v.process.id"),
-                          {},
-                          function (object) {helper.handleCreated(component, object);},
-                          object);
- 
+    showList: function (component, event, helper) { 
+        component.set("v.showList", true);
+        component.set("v.showDetail", false);
+        component.set("v.showCreate", false);
     },
-    handleGetObjectsEvent : function (component, event, helper) {
-        console.log('handleGetObjectsEvent');
+    handleObjectCreatedEvent: function (component, event, helper) { 
+        component.set("v.showList", true);
+        component.set("v.showDetail", false);
+        component.set("v.showCreate", false);
         
-        var objectType = event.getParam("objectType");
-        var relatedTo = event.getParam("relatedTo");
-        
-         helper.getObjects(component, 
-                          objectType,
-                          relatedTo,
-                          component.get("v.process.id"),
-                          {},
-                          function (objects) {helper.handleGetObjects(component, objects, objectType);});
-        
+        var shoutOut = event.getParam("shoutOut");
+		// lookup list
+		var list = component.find('ShoutOutList');
+        list.shoutOutCreated(shoutOut);
     },
     createShoutOut : function (component, event, helper) {
-        component.set("v.selectedShoutOut", undefined);
+        component.set("v.showList", false);
+        component.set("v.showDetail", false);
+        component.set("v.showCreate", true);
     }
     
 })

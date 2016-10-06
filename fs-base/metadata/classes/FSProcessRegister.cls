@@ -110,6 +110,14 @@ global class FSProcessRegister {
 		return registeredProcesses.values();
     }
     
+    global List<String> getAllProcessNames() {
+    	List<String> names = new List<String>();
+    	for (RegisteredProcess proc : getAllProcesses()) {
+    		names.add(proc.Name);
+    	}
+    	return names;
+    }
+    
     private static transient Map<String, RegisteredProcess> registeredObjects;
     public static RegisteredProcess getProcessByObjectType(String objectType) {
     	if (registeredObjects == null) {

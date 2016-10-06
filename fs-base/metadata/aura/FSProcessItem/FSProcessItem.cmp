@@ -5,6 +5,6 @@
 	<aura:registerEvent name="processSelected" type="fsbase:FSProcessSelectedEvent"/>
 
     <!-- body -->
-    <p>Process Name: {!v.process.displayName}<ui:button label="Select" press="{!c.selectProcess}" /></p>
+    <p>Process Name: {!v.process.displayName}<ui:button label="Choose" press="{!c.selectProcess}" /></p>
     
 </aura:component>

@@ -6,6 +6,9 @@
     <!-- event received -->
 	<aura:handler event="fsbase:FSProcessSelectedEvent" action="{!c.handleProcessSelectedEvent}"/>	
     
-    <!-- body -->    
+    <!-- body -->
+    <aura:if isTrue="{!!v.process}">
+    	<h2>Please select a process</h2>
+	</aura:if>   
     {!v.body}
 </aura:component>

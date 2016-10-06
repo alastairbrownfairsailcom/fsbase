@@ -9,10 +9,10 @@
     <aura:handler name="fsProcessListAvailableEvent" event="fsbase:FSProcessListAvailableEvent" action="{!c.handleProcessListAvailableEvent}"/>
 
     <!-- body -->
-    <h1>Processes:</h1>
+    <ul class="slds-has-dividers--top">
     <aura:iteration items="{!v.processes}" var="p">
-        <fsbase:FSProcessItem process="{!p}"></fsbase:FSProcessItem>
+        <li class="slds-item"><fsbase:FSProcessItem process="{!p}"></fsbase:FSProcessItem></li>
     </aura:iteration>
-    
+	</ul>    
     <fsbase:FSProcessService />
 </aura:component>

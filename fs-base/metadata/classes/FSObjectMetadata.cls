@@ -1,11 +1,35 @@
 global class FSObjectMetadata {
 	global virtual class FSFieldMetadata {
-		@AuraEnabled
+		@Deprecated // no need to deprecate now object are serialized by object controller instead of lightning
 		global String path;
-		@AuraEnabled
+		@Deprecated
 		global String displayName;
-		@AuraEnabled
+		@Deprecated
 		global String fieldType;
+		
+		public String getPath() {
+			return path;
+		}
+		
+		public void setPath(String path) {
+			this.path = path;
+		}
+		
+		public String getDisplayName() {
+			return displayName;
+		}
+		
+		public void setDisplayName(String displayName) {
+			this.displayName = displayName;
+		}
+		
+		public String getFieldType() {
+			return fieldType;
+		}
+		
+		public void setFieldType(String fieldType) {
+			this.fieldType = fieldType;
+		}
 	}
 	
 	global class FSPicklistOption {
@@ -24,6 +48,12 @@ global class FSObjectMetadata {
 	}
 	
 	global class FSPicklistFieldMetadata extends FSFieldMetadata {
+		@AuraEnabled
+		global String path {get {return super.getPath();} set {super.setPath(value);}}
+		@AuraEnabled
+		global String displayName {get {return super.getDisplayName();} set {super.setDisplayName(value);}}
+		@AuraEnabled
+		global String fieldType {get {return super.getFieldType();} set {super.setFieldType(value);}}
 		@AuraEnabled
 		global List<FSPicklistOption> options {get; private set;}
 		

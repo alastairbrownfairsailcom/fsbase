@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Notification of object creation" access="global">
+    <!-- attributes -->
+    <aura:attribute name="object" type="Object" access="global" required="true"/>
+</aura:event>

@@ -98,7 +98,7 @@ global class ShoutOutProcess implements fsbase.FSProcess {
 		} else if (objectType == 'User') {
 			List<FSLookupDTO> users = new List<FSLookupDTO>();
 			 	
-			for (User user : [SELECT Id, Name FROM User WHERE Id != : UserInfo.getUserId() AND IsActive = true]) {
+			for (User user : [SELECT Id, Name FROM User WHERE Id != : UserInfo.getUserId() AND IsActive = true ORDER BY Name]) {
 				users.add(new FSLookupDTO(user.Id, user.Name));
 			}
 				
@@ -106,7 +106,7 @@ global class ShoutOutProcess implements fsbase.FSProcess {
 		} else if (objectType == 'Opportunity') {
 			List<FSLookupDTO> opportunities = new List<FSLookupDTO>();
 			 	
-			for (Opportunity opportunity : [SELECT Id, Name FROM Opportunity WHERE Account.OwnerId =: UserInfo.getUserId() AND LastModifiedDate >= : System.today().addMonths(-3)]) {
+			for (Opportunity opportunity : [SELECT Id, Name FROM Opportunity WHERE Account.OwnerId =: UserInfo.getUserId() AND LastModifiedDate >= : System.today().addMonths(-3) ORDER BY Name]) {
 				opportunities.add(new FSLookupDTO(opportunity.Id, opportunity.Name));
 			}
 				

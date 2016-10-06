@@ -60,9 +60,9 @@ public class FSObjectRESTTest {
 		}    	
     }
     
-    public class TestDeserializer implements FSDeserializer {
-    	public FSObjectDTO deserialize(String objectType, Blob content) {
-    		return (FSObjectDTO) JSON.deserialize(content.toString(), TestObject.class);
+    public class TestDeserializer implements FSDeserializer2 {
+    	public FSObjectDTO deserialize(String objectType, String content) {
+    		return (FSObjectDTO) JSON.deserialize(content, TestObject.class);
     	}
     }
     

@@ -5,29 +5,23 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 	<aura:handler name="shoutOutSelectedEvent" event="c:ShoutOutSelectedEvent"
     		action="{!c.handleShoutOutSelectedEvent}"/>
-	<aura:handler name="createObjectEvent" event="fsbase:FSCreateObjectEvent"
-    		action="{!c.handleCreateObjectEvent}"/>
-	<aura:handler name="getObjectsEvent" event="fsbase:FSGetObjectsEvent"
-    		action="{!c.handleGetObjectsEvent}"/>
+	<aura:handler name="objectCreatedEvent" event="fsbase:FSObjectCreatedEvent"
+    		action="{!c.handleObjectCreatedEvent}"/>
     
     <!-- body -->
-    <div>
-        <h1>Shout Outs Process</h1>    
-        <h2>Given</h2>
-        <aura:iteration items="{!v.given}" var="so">
-            <c:ShoutOutItem shoutOut="{!so}" given="true"/>
-        </aura:iteration>
-        <h2>Received</h2>
-        <aura:iteration items="{!v.received}" var="so">
-            <c:ShoutOutItem shoutOut="{!so}" given="false"/>
-        </aura:iteration>
-    </div>
+    <h1 class="slds-text-title">Shout Outs Process</h1>    
     
-    <div>
-        <aura:if isTrue="{!v.selectedShoutOut}" >
-            <p><ui:button label="Create" press="{!c.createShoutOut}" /></p> 
-        </aura:if>
-        <!-- detail create or edit views -->
-        <c:ShoutOutDetail aura:id="ShoutOutDetail" process="{!v.process}" shoutOut="{!v.selectedShoutOut}" users="{!v.users}" opportunities="{!opportunities}" />
-	</div>
+    <!-- detail create or edit views -->
+    <aura:if isTrue="{!v.showList}">
+	   	<ui:button label="Create Shout Out" press="{!c.createShoutOut}" />
+      	<c:ShoutOutList aura:id="ShoutOutList" process="{!v.process}"/>             
+    </aura:if>
+    <aura:if isTrue="{!v.showCreate}" >
+        <c:ShoutOutCreate aura:id="ShoutOutCreate" process="{!v.process}"/>             
+        <ui:button label="Cancel" press="{!c.showList}" />
+    </aura:if>
+    <aura:if isTrue="{!v.showDetail}" >
+        <c:ShoutOutDetail aura:id="ShoutOutDetail" process="{!v.process}" shoutOut="{!v.selectedShoutOut}" />
+        <ui:button label="Back to List" press="{!c.showList}" />
+    </aura:if>
 </aura:component>

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,11 +14,11 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <h1>FS Framework Demo</h1>\n    <br/>\n    <div id=\"navigation\">\n        <fsprocess-list></fsprocess-list>\n    </div>\n    <div id=\"detail\">\n        <router-outlet></router-outlet>\n    </div>\n    "
+            template: "\n\t<div class=\"slds-page-header\">\n        <h1 class=\"slds-text-heading--large\">FS Framework (Angular2)</h1>\n    </div>\n\n    <div class=\"slds-grid slds-m-top--large\">\n      <div class=\"slds-col slds-col-rule--right slds-p-right--large slds-size--4-of-12\">\n        <div class=\"slds-box slds-box--small slds-theme--shade\">\n            <fsprocess-list></fsprocess-list>\n        </div>\n      </div>\n      <div class=\"slds-col slds-p-left--large slds-size--8-of-12\">\n        <div class=\"slds-box slds-box--small\">\n            <router-outlet></router-outlet>\n        </div>\n      </div>\n    </div>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
     return AppComponent;
-}());
+})();
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

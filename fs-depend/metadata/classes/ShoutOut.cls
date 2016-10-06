@@ -1,23 +1,13 @@
 public class ShoutOut implements fsbase.FSObjectDTO {
-    @AuraEnabled
 	public Id id {get; private set;}
-    @AuraEnabled
 	public String typeName {get; private set;}
-    @AuraEnabled
 	public Id receiverId {get; set;}
-    @AuraEnabled
 	public String receiverName {get; set;}
-    @AuraEnabled
 	public Id giverId {get; set;}
-    @AuraEnabled
 	public String giverName {get; set;}
-    @AuraEnabled
 	public Id opportunityId {get; set;}
-    @AuraEnabled
 	public String opportunityName {get; set;}
-    @AuraEnabled
 	public String comments {get; set;}
-    @AuraEnabled
 	public String reason {get; set;}
 	
 	public static ShoutOut get(Id shoutOutId) {
@@ -36,7 +26,7 @@ public class ShoutOut implements fsbase.FSObjectDTO {
 	public static List<ShoutOut> getAllReceivedBy(Id subjectUserId) {
 		List<ShoutOut> sos;
 		try {
-			List<Shout_Out__c> soObjs = [SELECT Id, CreatedById, CreatedBy.Name, Receiver__c, Receiver__r.Name, Opportunity__c, Opportunity__r.Name, Comments__c, Reason__c FROM Shout_Out__c WHERE Receiver__c =: subjectUserId];
+			List<Shout_Out__c> soObjs = [SELECT Id, CreatedById, CreatedBy.Name, Receiver__c, Receiver__r.Name, Opportunity__c, Opportunity__r.Name, Comments__c, Reason__c FROM Shout_Out__c WHERE Receiver__c =: subjectUserId ORDER BY CreatedDate DESC];
 
 			sos = buildList(soObjs);
 		} catch (Exception ex) {
@@ -49,7 +39,7 @@ public class ShoutOut implements fsbase.FSObjectDTO {
 	public static List<ShoutOut> getAllGivenBy(Id subjectUserId) {
 		List<ShoutOut> sos;
 		try {
-			List<Shout_Out__c> soObjs = [SELECT Id, CreatedById, CreatedBy.Name, Receiver__c, Receiver__r.Name, Opportunity__c, Opportunity__r.Name, Comments__c, Reason__c FROM Shout_Out__c WHERE CreatedById =: subjectUserId];
+			List<Shout_Out__c> soObjs = [SELECT Id, CreatedById, CreatedBy.Name, Receiver__c, Receiver__r.Name, Opportunity__c, Opportunity__r.Name, Comments__c, Reason__c FROM Shout_Out__c WHERE CreatedById =: subjectUserId ORDER BY CreatedDate DESC];
 
 			sos = buildList(soObjs);
 		} catch (Exception ex) {

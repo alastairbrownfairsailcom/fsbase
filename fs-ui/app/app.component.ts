@@ -4,13 +4,21 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'my-app',
     template: `
-    <h1>FS Framework Demo</h1>
-    <br/>
-    <div id="navigation">
-        <fsprocess-list></fsprocess-list>
+	<div class="slds-page-header">
+        <h1 class="slds-text-heading--large">FS Framework (Angular2)</h1>
     </div>
-    <div id="detail">
-        <router-outlet></router-outlet>
+
+    <div class="slds-grid slds-m-top--large">
+      <div class="slds-col slds-col-rule--right slds-p-right--large slds-size--4-of-12">
+        <div class="slds-box slds-box--small slds-theme--shade">
+            <fsprocess-list></fsprocess-list>
+        </div>
+      </div>
+      <div class="slds-col slds-p-left--large slds-size--8-of-12">
+        <div class="slds-box slds-box--small">
+            <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
     `
 })

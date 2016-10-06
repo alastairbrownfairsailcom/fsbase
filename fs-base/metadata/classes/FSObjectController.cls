@@ -2,44 +2,62 @@ public with sharing class FSObjectController {
 	private class ProcessDescriptor {
 		public FSProcess fsProcess;
 		public FSSerializer fsSerializer;
-		public FSDeserializer fsDeserializer;
+		public FSDeserializer2 fsDeserializer;
 		public String objectType;
 	}
 	
     @AuraEnabled
-    public static FSObjectDTO getObject(String objectType, String relatedTo, Id objectId, Id processId, Map<String, String> params) {
+    public static String getObject(String objectType, String relatedTo, Id objectId, Id processId, Map<String, String> params) {
 		// build the process object
 		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
 		    			
 		// get business object
-		return pd.fsProcess.getObject(pd.objectType, objectId);								  	
+		FSObjectDTO result = pd.fsProcess.getObject(pd.objectType, objectId);		
+								  	
+		// serialize result
+		return pd.fsSerializer.serialize(result);    	
     }
     
      @AuraEnabled
-    public static List<FSObjectDTO> getObjects(String objectType, String relatedTo, Id processId, Map<String, String> params) {
+    public static String getObjects(String objectType, String relatedTo, Id processId, Map<String, String> params) {
 		// build the process object
 		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
 		    		    			
 		// get business objects
-		return pd.fsProcess.getObjects(objectType);    	
+		List<FSObjectDTO> result = pd.fsProcess.getObjects(objectType);    	
+
+		// serialize result
+		return pd.fsSerializer.serialize(result);    	
     }
     
     @AuraEnabled
-    public static FSObjectDTO createObject(String objectType, String relatedTo, Id processId, Map<String, String> params, FSObjectDTO fsObject) {
+    public static String createObject(String objectType, String relatedTo, Id processId, Map<String, String> params, String content) {    
 		// build the process object
 		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
 		    		    			
+		// convert the blob to an apex class
+		FSObjectDTO fsObject = pd.fsDeserializer.deserialize(objectType, content);
+
 		// create business objects
-		return pd.fsProcess.createObject(pd.objectType, fsObject);    	
+		FSObjectDTO result = pd.fsProcess.createObject(pd.objectType, fsObject);
+		
+		// serialize result
+		return pd.fsSerializer.serialize(result);    	
     }
     
     @AuraEnabled
-    public static FSObjectDTO updateObject(String objectType, String relatedTo, Id objectId, Id processId, Map<String, String> params, FSObjectDTO fsObject) {
+    public static String updateObject(String objectType, String relatedTo, Id objectID, Id processId, Map<String, String> params, String content) {    
 		// build the process object
 		ProcessDescriptor pd = buildProcess(relatedTo != null ? relatedTo : objectType, processId, params);
+		
+		// convert the blob to an apex class
+		FSObjectDTO fsObject = pd.fsDeserializer.deserialize(objectType, content);
 		    		    			
 		// update business objects
-		return pd.fsProcess.updateObject(pd.objectType, objectId, fsObject);    	
+		FSObjectDTO result = pd.fsProcess.updateObject(pd.objectType, objectId, fsObject);
+		
+		// serialize result
+		return pd.fsSerializer.serialize(result);    	
     }
         
     @AuraEnabled
@@ -123,7 +141,7 @@ public with sharing class FSObjectController {
 			// get Deserializer
 			Type fsDeserializerType = Type.forName(registeredProcess.namespace, registeredProcess.deserializerClassName);
 			     	
-			descriptor.fsDeserializer = (FSDeserializer) fsDeserializerType.newInstance();
+			descriptor.fsDeserializer = (FSDeserializer2) fsDeserializerType.newInstance();
 			
 		return descriptor;
 	}   

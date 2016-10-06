@@ -1,0 +1,3 @@
+<aura:component controller="FSObjectController" extensible="true" abstract="true" access="global" >
+    <div>{!v.body}</div>
+</aura:component>

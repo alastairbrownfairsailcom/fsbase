@@ -1,0 +1,37 @@
+<aura:component extends="fsbase.FSObjectBase">
+    <!-- attributes -->
+	<aura:attribute name="process" type="fsbase.FSProcessDTO" required="true" />
+	<aura:attribute name="users" type="FsDepend.FSLookupDTO"/>
+	<aura:attribute name="opportunities" type="FsDepend.FSLookupDTO"/>
+
+    <!-- events received -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- events fired -->
+	<aura:registerEvent name="objectCreatedEvent" type="fsbase:FSObjectCreatedEvent"/>
+    
+    <!-- body -->
+    <h2>Create Shout Out</h2>
+        <form>
+    <ui:inputSelect aura:id="receiver" label="Received by" change="{!c.onSelectChange}" required="true">
+             <ui:inputSelectOption label="--"/>
+        <aura:iteration items="{!v.users}" var="user">
+             <ui:inputSelectOption text="{!user.id}" label="{!user.name}"/>
+        </aura:iteration>
+    </ui:inputSelect>        
+    <ui:inputSelect aura:id="opportunity" label="Opportunity" change="{!c.onSelectChange}" required="true">
+             <ui:inputSelectOption label="--"/>
+        <aura:iteration items="{!v.opportunities}" var="opportunity">
+             <ui:inputSelectOption text="{!opportunity.id}" label="{!opportunity.name}"/>
+        </aura:iteration>
+    </ui:inputSelect>        
+    <ui:inputSelect aura:id="reason" label="Reason" change="{!c.onSelectChange}" required="true">
+             <ui:inputSelectOption text="" label="--"/>
+        <aura:iteration items="{!v.reasons}" var="reason">
+             <ui:inputSelectOption text="{!reason.value}" label="{!reason.displayName}"/>
+        </aura:iteration>
+    </ui:inputSelect>        
+	<ui:inputTextArea aura:id="comments" label="Comments" rows="5" change="{!c.onSelectChange}" />        
+    <p><ui:button label="Create" press="{!c.createShoutOut}" disabled="{!!v.canCreate}"/></p> 
+</form>
+</aura:component>

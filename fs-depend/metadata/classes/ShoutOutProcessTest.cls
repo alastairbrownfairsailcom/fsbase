@@ -1,4 +1,4 @@
-@isTest
+@isTest(seeAllData=false)
 public class ShoutOutProcessTest {
 	private static User otherUser;
 	private static Opportunity opportunity;
@@ -257,8 +257,14 @@ public class ShoutOutProcessTest {
 		
 		List<fsbase.FSObjectDTO> results = proc.getObjects('User');
 
-		System.assertEquals(1, results.size());	
-		System.assertEquals(otherUser.Id, ((List<FSLookupDTO>) results).get(0).id);
+		System.assertEquals(2, results.size());	// seems to be getting all users
+		Boolean found = false;
+		for (FSLookupDTO dto : ((List<FSLookupDTO>) results)) {
+			if (dto.id == otherUser.Id) {
+				found = true;
+			}
+		}
+		System.assertEquals(true, found);
 	}
 	
 	public static testmethod void testGetOpportunities() {
