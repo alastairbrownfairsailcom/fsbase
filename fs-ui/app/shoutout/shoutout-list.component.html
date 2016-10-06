@@ -1,16 +1,16 @@
 <button (click)="createShoutOut()">Create Shout Out</button>
 
-<h2 class="slds-text-title">Given:</h2>
+<h2 class="slds-text-heading--medium">Given:</h2>
 <ul class="slds-has-dividers--top">
     <li *ngFor="let shoutOut of givenShoutOuts" (click)="onSelect(shoutOut)" class="slds-item">
-        <span>To {{shoutOut.receiverName}} for {{shoutOut.reason}}</span> <button (click)="selectShoutOut(shoutOut)">Choose</button>
+        <span>To {{shoutOut.receiverName}} for {{shoutOut.reason}}</span> <button (click)="selectShoutOut(shoutOut)">Details</button>
     </li>
 </ul>
 
-<h2 class="slds-text-title">Received:</h2>
+<h2 class="slds-text-heading--medium">Received:</h2>
 <ul class="slds-has-dividers--top">
     <li *ngFor="let shoutOut of receivedShoutOuts" (click)="onSelect(shoutOut)" class="slds-item">
-        <span>From {{shoutOut.giverName}} for {{shoutOut.reason}}</span> <button (click)="selectShoutOut(shoutOut)">Choose</button>
+        <span>From {{shoutOut.giverName}} for {{shoutOut.reason}}</span> <button (click)="selectShoutOut(shoutOut)">Details</button>
     </li>
 </ul>
 

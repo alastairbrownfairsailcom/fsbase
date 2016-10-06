@@ -1,4 +1,4 @@
-<button (click)="listShoutOuts()">Back to list</button>
+<h2 class="slds-text-heading--medium">Shout Out Detail</h2>
 
 <div *ngIf="shoutOut">
 <p>From: {{shoutOut.giverName}} </p>
@@ -7,3 +7,5 @@
 <p>Opportunity: {{shoutOut.opportunityName}} </p>
 <p>Comments: {{shoutOut.comments}} </p>
 </div>
+
+<button (click)="listShoutOuts()">Back to list</button>
