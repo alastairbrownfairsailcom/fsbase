@@ -12,7 +12,7 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
     <!-- body -->
-        <h2 class="slds-text-title">Given</h2>
+        <h2 class="slds-text-heading--medium">Given</h2>
 		<ul class="slds-has-dividers--top">
         <aura:iteration items="{!v.given}" var="so">
     		<li class="slds-item">
@@ -20,7 +20,7 @@
             </li>
         </aura:iteration>
     </ul>
-        <h2 class="slds-text-title">Received</h2>
+        <h2 class="slds-text-heading--medium">Received</h2>
 		<ul class="slds-has-dividers--top">
         <aura:iteration items="{!v.received}" var="so">
     		<li class="slds-item">

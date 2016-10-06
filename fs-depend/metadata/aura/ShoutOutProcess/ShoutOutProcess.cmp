@@ -9,7 +9,7 @@
     		action="{!c.handleObjectCreatedEvent}"/>
     
     <!-- body -->
-    <h1 class="slds-text-title">Shout Outs Process</h1>    
+    <h1 class="slds-text-heading--large">Shout Outs Process</h1>    
     
     <!-- detail create or edit views -->
     <aura:if isTrue="{!v.showList}">

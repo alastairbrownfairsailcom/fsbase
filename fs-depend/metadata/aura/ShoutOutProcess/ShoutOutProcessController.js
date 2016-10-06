@@ -25,7 +25,7 @@
         component.set("v.showDetail", false);
         component.set("v.showCreate", false);
         
-        var shoutOut = event.getParam("shoutOut");
+        var shoutOut = event.getParam("object");
 		// lookup list
 		var list = component.find('ShoutOutList');
         list.shoutOutCreated(shoutOut);

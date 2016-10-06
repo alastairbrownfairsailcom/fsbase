@@ -8,12 +8,10 @@
     <!-- events fired -->
 
     <!-- body -->
-    <aura:if isTrue="{!v.shoutOut}">
-    <h2>Shout Out Detail</h2>
+    <h2 class="slds-text-heading--medium">Shout Out Detail</h2>
         <p>Given By: {!v.shoutOut.giverName}</p>
         <p>Received By: {!v.shoutOut.receiverName}</p>
         <p>Opportunity: {!v.shoutOut.opportunityName}</p>
         <p>Reason: {!v.shoutOut.reason}</p>
         <p>Comments: {!v.shoutOut.comments}</p>
-    </aura:if>
 </aura:component>

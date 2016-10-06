@@ -8,9 +8,9 @@
 
     <!-- body -->
     <aura:if isTrue="{!v.given}">
-    <p>Shout out to {!v.shoutOut.receiverName} for {!v.shoutOut.reason}<ui:button label="Select" press="{!c.selectShoutOut}" /></p> 
+    <p>Shout out to {!v.shoutOut.receiverName} for {!v.shoutOut.reason}<ui:button label="Details" press="{!c.selectShoutOut}" /></p> 
     </aura:if>
     <aura:if isTrue="{!!v.given}">
-    <p>Shout out from {!v.shoutOut.giverName} for {!v.shoutOut.reason}<ui:button label="Select" press="{!c.selectShoutOut}" /></p> 
+    <p>Shout out from {!v.shoutOut.giverName} for {!v.shoutOut.reason}<ui:button label="Details" press="{!c.selectShoutOut}" /></p> 
     </aura:if>
 </aura:component>

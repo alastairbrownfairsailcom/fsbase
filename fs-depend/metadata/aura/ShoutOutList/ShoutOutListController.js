@@ -26,13 +26,15 @@
         var params = event.getParam('arguments');
         if (params) {
             var shoutOut = params.shoutOut;
-    
-             console.log("Created " + shoutOut.id);
+            
+            console.log("Created " + shoutOut.id);
     
             // refresh list
             var given = component.get("v.given");
-            given.unshift(shoutOut);
-            component.set("v.given", given);
+            if (given) {
+                given.unshift(shoutOut);
+                component.set("v.given", given);
+            }
         }
     }
 })
